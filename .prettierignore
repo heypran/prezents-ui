@@ -1,0 +1,10 @@
+node_modules
+
+# Ignore artifacts:
+build
+coverage
+public
+dist
+.next
+.idea
+package-lock.json

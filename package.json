@@ -1,0 +1,47 @@
+{
+  "name": "prezents-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "env-cmd -f env/.env.development next dev",
+    "build": "next build",
+    "build:dev": "env-cmd -f env/.env.development next build",
+    "export:dev": "env-cmd -f env/.env.development next export -o out",
+    "build:prod": "env-cmd -f env/.env.production next build",
+    "export:prod": "env-cmd -f env/.env.production next export -o out",
+    "deploy:dev": "firebase deploy --only hosting:quiz-dapp",
+    "deploy:prod": "firebase deploy --only hosting:prezents",
+    "start": "next start",
+    "export": "next export"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
+    "antd": "^4.19.2",
+    "bs58": "^5.0.0",
+    "ethers": "^5.6.5",
+    "firebase": "^9.8.1",
+    "lodash": "^4.17.21",
+    "next": "12.1.0",
+    "next-plugin-antd-less": "^1.8.0",
+    "next-redux-wrapper": "^7.0.5",
+    "qs": "^6.10.3",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.1",
+    "unique-names-generator": "^4.7.1",
+    "web3.storage": "^4.2.0",
+    "web3modal": "^1.9.7"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.21",
+    "@types/react": "17.0.41",
+    "babel-plugin-import": "^1.13.3",
+    "env-cmd": "^10.1.0",
+    "prettier": "^2.6.0",
+    "typescript": "4.6.2"
+  }
+}

@@ -1,0 +1,18 @@
+.quiz-card {
+  --angle: 0deg;
+  background: rgba(20, 24, 20, 0.5) !important;
+  border: 2px solid;
+  border-radius: 16px;
+  border-image: linear-gradient(var(--angle), #12c2e9, #c471ed, #f64f59) 1;
+  animation: 5s rotate linear infinite;
+}
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}

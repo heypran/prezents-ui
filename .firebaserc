@@ -1,0 +1,24 @@
+{
+  "projects": {
+    "default": "quiz-dapp"
+  },
+  "targets": {
+    "quiz-dapp": {
+      "hosting": {
+        "quiz-dapp": [
+          "out"
+        ],
+        "e-dapp": [
+          "out"
+        ]
+      }
+    },
+    "prezents": {
+      "hosting": {
+        "prezents-prod": [
+          "out"
+        ]
+      }
+    }
+  }
+}

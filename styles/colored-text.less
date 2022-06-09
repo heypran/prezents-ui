@@ -1,0 +1,49 @@
+:root {
+  --color-1: #186cb8;
+  --color-2: #2a9a9f;
+  --color-3: #f1b211;
+  --color-4: #e83611;
+  --color-5: #f9002f;
+}
+
+.colored-text {
+  font-weight: 900;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  margin: auto;
+
+  font-family: 'Itim', 'Space Grotesk', Arial, sans-serif;
+  background: linear-gradient(
+    var(--angle),
+    var(--color-1) 19%,
+    transparent 1%,
+    transparent 10%,
+    var(--color-2) 20%,
+    var(--color-2) 39%,
+    transparent 1%,
+    transparent 2%,
+    var(--color-3) 40%,
+    var(--color-3) 59%,
+    transparent 2%,
+    transparent 3%,
+    var(--color-4) 60%,
+    var(--color-4) 79%,
+    transparent 7%,
+    transparent 8%,
+    var(--color-5) 80%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: 10s rotate linear infinite;
+}
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
