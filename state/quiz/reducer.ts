@@ -10,6 +10,7 @@ import {
   serializeContractQuizResponse,
 } from './helpers';
 import QuizApiService from '../../services/quizApi';
+import { getQuizAppContractAddress } from '../../hooks/addressHelpers';
 
 const initialState: QuizzesState = {
   status: QuizDappStatus.INITIAL,
@@ -89,14 +90,15 @@ export const fetchActiveQuizzes = createAsyncThunk<{
 export const fetchStats = createAsyncThunk<any>(
   'sevenupdown/fetchStats',
   async () => {
-    const url = `https://api.covalenthq.com/v1/1/events/topics/${getQuizAppContract(
+    //https://api.covalenthq.com/v1/80001/events/address/0xbCC444a2dA43278333A071d6De0480EB065f4173/?starting-block=26560000&ending-block=26678294&key=ckey_b1aa2527c82c4e8faca53c01c65
+    const url = `https://api.covalenthq.com/v1/80001/events/address/${getQuizAppContractAddress(
       CHAIN_ID
-    )}/:${getQuizAppContract(CHAIN_ID)}/?&key=${
+    )}/?starting-block=26560000&ending-block=${26678294}&key=${
       process.env.NEXT_PUBLIC_COV_KEY
     }`;
-    const data = await fetch(url);
-    console.log('fetchStats----->', data);
-    return data;
+    // const data = await fetch(url).catch((e) => console.log('err:', e));
+    // console.log('fetchStats----->', data);
+    return {};
   }
 );
 

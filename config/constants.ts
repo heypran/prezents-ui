@@ -12,4 +12,5 @@ export const CHAIN_ID = 80001;
 export const QUIZ_LENGTH = 4;
 
 export const link = 'https://www.prezents.xyz';
+export const githubLink = 'https://github.com/heypran/prezents-contracts';
 export const appName = 'prezents';

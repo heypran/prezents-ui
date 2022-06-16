@@ -30,6 +30,8 @@ import { useGetBlockExplorer } from '../hooks/useGetBlockExplorer';
 import { bindActionCreators } from 'redux';
 import { setTxWaiting } from '../state/quiz/reducer';
 import { useGetUserAccount } from '../state/quiz/hooks';
+import Header from '../components/header';
+import { Wrapper } from '../components/wrapper';
 
 interface MainProps {
   quizzes: QuizzesState;
@@ -193,24 +195,13 @@ const CreateQuiz: FC<MainProps> = ({}) => {
   };
 
   return (
-    <>
-      <Head>
-        <title>create a new quiz</title>
-        <meta property='og:title' content='create a new quiz' key='title' />
-      </Head>
+    <Wrapper>
+      <Header
+        title='Prezents | Learn To Earn Dapp | Create Quiz'
+        meta='Prezents | Learn To Earn Dapp | Create Quiz'
+      />
 
-      <Row justify='center' align='top' style={{ paddingTop: '1rem' }}>
-        <Col span={24}>
-          <Typography.Title
-            level={2}
-            style={{ textAlign: 'center' }}
-            className={'controls-text'}
-          >
-            <Typography.Text code={true}>
-              <NavBar />
-            </Typography.Text>
-          </Typography.Title>
-        </Col>
+      <Row justify='center' align='top'>
         <Col span={24}>
           <Typography.Title
             level={2}
@@ -510,7 +501,7 @@ const CreateQuiz: FC<MainProps> = ({}) => {
           </Row>
         </Col>
       </Row>
-    </>
+    </Wrapper>
   );
 };
 
