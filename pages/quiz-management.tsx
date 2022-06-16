@@ -27,6 +27,8 @@ import { getQuizAppContract } from '../hooks/contractHelpers';
 import QuizManagement from '../components/my-quizzes/quiz-management';
 import { useAppDispatch } from '../state';
 import { setTxWaiting } from '../state/quiz/reducer';
+import Header from '../components/header';
+import { Wrapper } from '../components/wrapper';
 
 interface MainProps {}
 
@@ -167,13 +169,10 @@ const EditQuiz: FC<MainProps> = ({}) => {
   }
 
   return (
-    <>
-      <Head>
-        <title>quiz - {quizId}</title>
-        <meta property='og:title' content='quiz' key='title' />
-      </Head>
-      <Row gutter={[8, 8]} style={{ width: '100%', padding: '2rem' }}>
-        <NavBar />
+    <Wrapper>
+      <Header title={`quiz - ${quizId}`} />
+
+      <Row gutter={[8, 8]} style={{ width: '100%' }}>
         <Col span={24}>
           <Typography.Title
             level={2}
@@ -539,20 +538,8 @@ const EditQuiz: FC<MainProps> = ({}) => {
           </Row>
         </Col>
       </Row>
-    </>
+    </Wrapper>
   );
 };
 
-// const mapDispatchToProps = (dispatch) => ({
-//   txWaitingConfirmationAction: bindActionCreators(
-//     txWaitingConfirmationAction,
-//     dispatch
-//   ),
-// });
-
-// const mapStateToProps = (state) => ({
-//   quizzes: state.quizzesReducer,
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(EditQuiz);
 export default EditQuiz;

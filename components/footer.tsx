@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { Button, Col, message, Row, Spin, Tooltip, Typography } from 'antd';
+import { Button, Col, Divider, Row, Tooltip, Typography } from 'antd';
 
 import {
   HomeOutlined,
@@ -9,7 +9,8 @@ import {
   IdcardFilled,
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
-import { appName } from '../config/constants';
+import { appName, githubLink } from '../config/constants';
+import { GithubIcon } from './icons/github';
 
 interface MainProps {}
 const navBarFontSize = '16px';
@@ -32,10 +33,17 @@ const footerLink = [
     tooltip: 'Earn to learn',
     icon: <DollarCircleFilled style={{ fontSize: navBarFontSize }} />,
   },
+  // {
+  //   link: '/create-quiz',
+  //   name: 'Create',
+  //   tooltip: 'Create new quizzes',
+  //   icon: <EditFilled style={{ fontSize: navBarFontSize }} />,
+  // },
+
   {
-    link: '/create-quiz',
-    name: 'Create',
-    tooltip: 'Create new quizzes',
+    link: '/content-policy',
+    name: 'Content Policy',
+    tooltip: 'User content policy',
     icon: <EditFilled style={{ fontSize: navBarFontSize }} />,
   },
 ];
@@ -47,13 +55,14 @@ const Footer: FC<MainProps> = ({}: MainProps) => {
       justify={'space-between'}
       style={{ width: '100%', padding: '40px 0', backgroundColor: '#222' }}
     >
+      <Divider />
       <Row
         gutter={[8, 8]}
         style={{ marginBottom: '24px', width: '100%' }}
         justify='center'
         align='middle'
       >
-        {/* {footerLink.map((nav) => {
+        {footerLink.map((nav) => {
           return (
             <Col>
               <Tooltip title={nav.tooltip}>
@@ -67,7 +76,7 @@ const Footer: FC<MainProps> = ({}: MainProps) => {
               </Tooltip>
             </Col>
           );
-        })} */}
+        })}
       </Row>
 
       <Row
@@ -80,8 +89,15 @@ const Footer: FC<MainProps> = ({}: MainProps) => {
           style={{ textAlign: 'center' }}
           className={'controls-text'}
         >
-          © 2022 {appName}
+          2022 | {appName}
         </Typography.Title>
+
+        {/* <Button
+          type={'text'}
+          icon={<GithubIcon />}
+          href={githubLink}
+          style={{ marginLeft: '16px' }}
+        /> */}
       </Row>
     </Row>
   );
