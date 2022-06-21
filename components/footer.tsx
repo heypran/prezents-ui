@@ -64,7 +64,7 @@ const Footer: FC<MainProps> = ({}: MainProps) => {
       >
         {footerLink.map((nav) => {
           return (
-            <Col>
+            <Col key={nav.link}>
               <Tooltip title={nav.tooltip}>
                 <Button
                   type={'text'}

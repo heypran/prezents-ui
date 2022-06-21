@@ -11,11 +11,11 @@ require('../styles/global.less');
 
 const App = ({ Component, pageProps }: AppProps) => {
   const store = useStore(pageProps.initialReduxState);
-  useEffect(() => {
-    if (process.env.NEXT_PUBLIC_ENV == 'prod') {
-      console.log = () => {};
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (process.env.NEXT_PUBLIC_ENV == 'prod') {
+  //     console.log = () => {};
+  //   }
+  // }, []);
   return (
     <>
       <Provider store={store}>

@@ -1,16 +1,21 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import merge from 'lodash/merge';
 import pickBy from 'lodash/pickBy';
+import QuizAbi from '../../abi/QiuzApp.json';
 import { DappQuizType, QuizDappStatus, QuizzesState } from '../types';
 import { CHAIN_ID } from '../../config/constants';
 import { getQuizAppContract } from '../../hooks/contractHelpers';
 import {
+  getEventCount,
+  getEventsByTopicUrl,
   getQuizDappGameState,
   makeDappActiveQuizData,
   serializeContractQuizResponse,
 } from './helpers';
 import QuizApiService from '../../services/quizApi';
 import { getQuizAppContractAddress } from '../../hooks/addressHelpers';
+import { ethers } from 'ethers';
+import { eventTopics } from '../../store/quizzes/helper';
 
 const initialState: QuizzesState = {
   status: QuizDappStatus.INITIAL,
@@ -90,15 +95,47 @@ export const fetchActiveQuizzes = createAsyncThunk<{
 export const fetchStats = createAsyncThunk<any>(
   'sevenupdown/fetchStats',
   async () => {
+    let totalCreated = 0;
+    let totalRewardsRedeemed = 0;
+    let totalParticipants = 0;
     //https://api.covalenthq.com/v1/80001/events/address/0xbCC444a2dA43278333A071d6De0480EB065f4173/?starting-block=26560000&ending-block=26678294&key=ckey_b1aa2527c82c4e8faca53c01c65
-    const url = `https://api.covalenthq.com/v1/80001/events/address/${getQuizAppContractAddress(
-      CHAIN_ID
-    )}/?starting-block=26560000&ending-block=${26678294}&key=${
-      process.env.NEXT_PUBLIC_COV_KEY
-    }`;
-    // const data = await fetch(url).catch((e) => console.log('err:', e));
-    // console.log('fetchStats----->', data);
-    return {};
+    // const url = `https://api.covalenthq.com/v1/${CHAIN_ID}/events/address/${`0xbCC444a2dA43278333A071d6De0480EB065f4173`}/?starting-block=26440000&ending-block=${26678294}&key=${
+    //   process.env.NEXT_PUBLIC_COV_KEY
+    // }`;
+    totalCreated = await getEventCount(eventTopics.quizCreated);
+    totalRewardsRedeemed = await getEventCount(eventTopics.rewardRedemption);
+    totalParticipants = await getEventCount(eventTopics.quizSubmitted);
+    // const response = await fetch(url).catch((e) => console.log('err:', e));
+    // const response2 = await fetch(url2).catch((e) => console.log('err:', e));
+
+    // if (response2 && response2.ok) {
+    //   const jsonData = await response2.json();
+    //   const { data } = jsonData;
+    //   console.log(`jsonData URL 2 --->`, jsonData.data);
+    //   totalCreated = data.pagination.hasMore
+    //     ? data.pagination.page_size * data.pagination.total_count
+    //     : data.items.legth;
+    // }
+    //console.log('fetchStats----->', response?.json());
+    // const events = response.data.items.map(i=>i.raw_log_tpics)
+
+    // if (response && response.ok) {
+    //   const jsonData = await response.json();
+    //   const { data } = jsonData;
+
+    //   const parsedItems = data.items.map((item) => {
+    //     console.log(`item--->`, item);
+    //     const topic = item.raw_log_topics.map((i) => {
+    //       console.log('i----_>', i);
+    //       return ethers.utils.toUtf8String(i);
+    //     });
+    //     console.log('topic------->', topic);
+    //     return topic;
+    //   });
+
+    //   return parsedItems;
+    // }
+    return { totalCreated, totalParticipants, totalRewardsRedeemed };
   }
 );
 

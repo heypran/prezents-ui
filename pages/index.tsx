@@ -11,18 +11,22 @@ import { useWalletContext } from '../components/WalletContext';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../state';
 import { fetchStats } from '../state/quiz/reducer';
+import AnimatedNumber from 'react-animated-numbers';
 
 require('../styles/home-page.less');
 require('../styles/colored-text.less');
+require('../styles/home-stats.less');
 
 const Home: NextPage = () => {
   const state = useGetQuizDappStatus();
   const dispatch = useAppDispatch();
-  console.log('data---->state', state);
+
   const { account } = useWalletContext();
+
   useEffect(() => {
     dispatch(fetchStats());
   }, []);
+  console.log('state', state.quizDapp.dappStats);
   return (
     <>
       <Head>
@@ -127,6 +131,112 @@ const Home: NextPage = () => {
         justify={'center'}
         align={'middle'}
         style={{
+          height: '260px',
+          backgroundColor: '#22B69B',
+          padding: '16px',
+        }}
+      >
+        <Col>
+          {typeof window == 'object' && (
+            <AnimatedNumber
+              includeComma
+              animateToNumber={state.quizDapp.dappStats.totalCreated ?? 0}
+              fontStyle={{ fontSize: 40, textAlign: 'center' }}
+              configs={[
+                { mass: 1, tension: 220, friction: 100 },
+                { mass: 1, tension: 180, friction: 130 },
+                { mass: 1, tension: 280, friction: 90 },
+                { mass: 1, tension: 180, friction: 135 },
+                { mass: 1, tension: 260, friction: 100 },
+                { mass: 1, tension: 210, friction: 180 },
+              ]}
+            />
+          )}
+          <Typography.Text
+            style={{
+              textAlign: 'center',
+              fontSize: '24px',
+              // wordBreak: 'break-all',
+              wordWrap: 'break-word',
+              marginBottom: '24px',
+            }}
+          >
+            quizzes created.
+          </Typography.Text>
+          {/* <Typography.Title
+            level={1}
+            style={{
+              textAlign: 'center',
+              // wordBreak: 'break-all',
+              wordWrap: 'break-word',
+              marginBottom: '24px',
+            }}
+          >
+            {state.quizDapp.dappStats.totalCreated} &nbsp;
+           
+          </Typography.Title> */}
+          {typeof window == 'object' && (
+            <AnimatedNumber
+              includeComma
+              animateToNumber={state.quizDapp.dappStats?.totalParticipants ?? 0}
+              fontStyle={{ fontSize: 40, textAlign: 'center' }}
+              configs={[
+                { mass: 1, tension: 220, friction: 100 },
+                { mass: 1, tension: 180, friction: 130 },
+                { mass: 1, tension: 280, friction: 90 },
+                { mass: 1, tension: 180, friction: 135 },
+                { mass: 1, tension: 260, friction: 100 },
+                { mass: 1, tension: 210, friction: 180 },
+              ]}
+            />
+          )}
+          <Typography.Text
+            style={{
+              textAlign: 'center',
+              fontSize: '24px',
+              // wordBreak: 'break-all',
+              wordWrap: 'break-word',
+              marginBottom: '24px',
+            }}
+          >
+            submissions.
+          </Typography.Text>
+          {/* {window != null && (
+            <AnimatedNumber
+              includeComma
+              animateToNumber={
+                state.quizDapp.dappStats?.totalRewardsRedeemed ?? 0
+              }
+              fontStyle={{ fontSize: 40, textAlign: 'center' }}
+              configs={[
+                { mass: 1, tension: 220, friction: 100 },
+                { mass: 1, tension: 180, friction: 130 },
+                { mass: 1, tension: 280, friction: 90 },
+                { mass: 1, tension: 180, friction: 135 },
+                { mass: 1, tension: 260, friction: 100 },
+                { mass: 1, tension: 210, friction: 180 },
+              ]}
+            />
+          )}
+
+          <Typography.Text
+            style={{
+              textAlign: 'center',
+              fontSize: '24px',
+              // wordBreak: 'break-all',
+              wordWrap: 'break-word',
+              marginBottom: '24px',
+            }}
+          >
+            scholars.
+          </Typography.Text> */}
+        </Col>
+      </Row>
+
+      <Row
+        justify={'center'}
+        align={'middle'}
+        style={{
           height: '200px',
           backgroundColor: '#2E5E77',
           padding: '16px',
@@ -144,10 +254,11 @@ const Home: NextPage = () => {
           >
             Attempt quizzes on various topics
           </Typography.Title>
+
           <Row justify={'center'} align={'middle'}>
             {['eth', 'solidity', 'ts', 'js'].map((str) => {
               return (
-                <Col style={{ marginLeft: '16px' }}>
+                <Col key={str} style={{ marginLeft: '16px' }}>
                   <Image
                     src={`/assets/lang/${str}.svg`}
                     height='100px'
