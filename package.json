@@ -11,6 +11,7 @@
     "export:prod": "env-cmd -f env/.env.production next export -o out",
     "deploy:dev": "firebase deploy --only hosting:quiz-dapp",
     "deploy:prod": "firebase deploy --only hosting:prezents",
+    "deploy": "yarn build:prod && yarn export:prod && yarn deploy:prod",
     "start": "next start",
     "export": "next export"
   },
@@ -26,6 +27,7 @@
     "next-redux-wrapper": "^7.0.5",
     "qs": "^6.10.3",
     "react": "17.0.2",
+    "react-animated-numbers": "^0.13.0",
     "react-dom": "17.0.2",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
