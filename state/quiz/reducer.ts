@@ -9,6 +9,7 @@ import {
   getEventCount,
   getEventsByTopicUrl,
   getQuizDappGameState,
+  getTxHistory,
   makeDappActiveQuizData,
   serializeContractQuizResponse,
 } from './helpers';
@@ -27,7 +28,8 @@ const initialState: QuizzesState = {
   answers: {},
   isWaitingTxConfirmation: false,
   activeQuizzes: {},
-
+  userTxHistory: undefined,
+  isFetchingUserHistory: false,
   leaderboard: {
     selectedAddress: null,
     loadingState: false,
@@ -93,7 +95,7 @@ export const fetchActiveQuizzes = createAsyncThunk<{
 });
 
 export const fetchStats = createAsyncThunk<any>(
-  'sevenupdown/fetchStats',
+  'quizdapp/fetchStats',
   async () => {
     let totalCreated = 0;
     let totalRewardsRedeemed = 0;
@@ -136,6 +138,16 @@ export const fetchStats = createAsyncThunk<any>(
     //   return parsedItems;
     // }
     return { totalCreated, totalParticipants, totalRewardsRedeemed };
+  }
+);
+
+export const fetchUserTxHistory = createAsyncThunk<any, { account: string }>(
+  'quizdapp/fetchUserTxHistory',
+  async ({ account }) => {
+    const txHistory = await getTxHistory(account, CHAIN_ID);
+    console.log('txHistroy', txHistory);
+
+    return txHistory;
   }
 );
 
@@ -205,7 +217,6 @@ export const quizDappSlice = createSlice({
 
     // Initialize sevenupdown
     builder.addCase(initializeQuizDapp.fulfilled, (state, action) => {
-      console.log('I am herer', action.payload);
       const activeQuizzes = [];
 
       // for (let i = lastRoundId; i <= lastRoundId + FUTURE_ROUND_COUNT; i++) {
@@ -236,6 +247,19 @@ export const quizDappSlice = createSlice({
       //   });
       //   console.log(`newRoundsData==>`, newRoundsData);
       state.activeQuizzes = allRoundData;
+    });
+
+    builder.addCase(fetchUserTxHistory.pending, (state) => {
+      state.isFetchingStats = true;
+    });
+    builder.addCase(fetchUserTxHistory.rejected, (state) => {
+      state.isFetchingStats = false;
+    });
+    builder.addCase(fetchUserTxHistory.fulfilled, (state, action) => {
+      const dataReceived = action.payload;
+      console.log('datareceived', dataReceived);
+      state.isFetchingUserHistory = false;
+      state.userTxHistory = dataReceived;
     });
 
     builder.addCase(fetchStats.pending, (state) => {

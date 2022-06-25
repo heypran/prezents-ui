@@ -28,7 +28,13 @@ export interface QuizzesState {
   activeQuizzes: ActiveQuizzes;
   leaderboard?: any;
   isFetchingStats: boolean;
-  dappStats: any;
+  dappStats: {
+    totalCreated?: number;
+    totalRewardsRedeemed?: number;
+    totalParticipants?: number;
+  };
+  userTxHistory?: UserTxHistoryResponseType;
+  isFetchingUserHistory: boolean;
 }
 
 export interface IContractQuiz {
@@ -79,3 +85,53 @@ export type DappQuizType = IContractQuiz & {
 export interface State {
   quizDapp: QuizzesState;
 }
+
+export type UserTxHistoryItemType = {
+  block_signed_at: string;
+  block_height: number;
+  tx_hash: string;
+  tx_offset: number;
+  successful: boolean;
+  from_address: string;
+  from_address_label?: null;
+  to_address: string;
+  to_address_label?: null;
+  value: string;
+  value_quote: number;
+  gas_offered: number;
+  gas_spent: number;
+  gas_price: number;
+  fees_paid: string;
+  gas_quote: number;
+  gas_quote_rate: number;
+  log_events?: LogEventsEntity[] | null;
+};
+export interface LogEventsEntity {
+  block_signed_at: string;
+  block_height: number;
+  tx_offset: number;
+  log_offset: number;
+  tx_hash: string;
+  raw_log_topics?: string[] | null;
+  sender_contract_decimals: number;
+  sender_name?: string | null;
+  sender_contract_ticker_symbol?: string | null;
+  sender_address: string;
+  sender_address_label?: null;
+  sender_logo_url: string;
+  raw_log_data?: string | null;
+  decoded?: null;
+}
+
+export type UserTxHistoryResponseType = {
+  address: string;
+  chain_id: string;
+  items: UserTxHistoryItemType[];
+  pagination: {
+    has_more: boolean;
+    page_number: number;
+    page_size: number;
+    total_count?: number;
+  };
+  updated_at: string;
+};

@@ -8,6 +8,7 @@ import {
   IContractQuizResponse,
   QuizDappStatus,
   QuizzesState,
+  UserTxHistoryResponseType,
 } from '../types';
 
 export const getQuizDappGameState = async (chainId: number): Promise<any> => {
@@ -113,4 +114,19 @@ export const getEventCount = async (topic: string): Promise<number> => {
   //data.items.map((i) => iface.getEvent(i.raw_log_topics[0]))
   // iface.parseLog({ topics: data.items[2].raw_log_topics, data: '0x' })
   return total;
+};
+
+export const getTxHistory = async (
+  account: string,
+  chainId: number
+): Promise<UserTxHistoryResponseType | undefined> => {
+  const txUrl = `https://api.covalenthq.com/v1/${chainId}/address/${account}/transactions_v2/?&key=${process.env.NEXT_PUBLIC_COV_KEY}`;
+  const reponse = await fetch(txUrl).catch((e) => console.log('err:', e));
+
+  if (reponse && reponse.ok) {
+    const jsonData = await reponse.json();
+
+    console.log(`jsonData URL 2 --->`, jsonData.data);
+    return jsonData.data;
+  }
 };

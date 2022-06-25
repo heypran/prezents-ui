@@ -131,13 +131,13 @@ const Home: NextPage = () => {
         justify={'center'}
         align={'middle'}
         style={{
-          height: '260px',
+          height: '280px',
           backgroundColor: '#22B69B',
           padding: '16px',
         }}
       >
         <Col>
-          {typeof window == 'object' && (
+          {/* {typeof window == 'object' && (
             <AnimatedNumber
               includeComma
               animateToNumber={state.quizDapp.dappStats.totalCreated ?? 0}
@@ -151,19 +151,8 @@ const Home: NextPage = () => {
                 { mass: 1, tension: 210, friction: 180 },
               ]}
             />
-          )}
-          <Typography.Text
-            style={{
-              textAlign: 'center',
-              fontSize: '24px',
-              // wordBreak: 'break-all',
-              wordWrap: 'break-word',
-              marginBottom: '24px',
-            }}
-          >
-            quizzes created.
-          </Typography.Text>
-          {/* <Typography.Title
+          )} */}
+          <Typography.Title
             level={1}
             style={{
               textAlign: 'center',
@@ -173,9 +162,30 @@ const Home: NextPage = () => {
             }}
           >
             {state.quizDapp.dappStats.totalCreated} &nbsp;
-           
-          </Typography.Title> */}
-          {typeof window == 'object' && (
+          </Typography.Title>
+          <Typography.Text
+            style={{
+              textAlign: 'center',
+              fontSize: '24px',
+              // wordBreak: 'break-all',
+              wordWrap: 'break-word',
+              marginBottom: '24px',
+            }}
+          >
+            quizzes created
+          </Typography.Text>
+          <Typography.Title
+            level={1}
+            style={{
+              textAlign: 'center',
+              // wordBreak: 'break-all',
+              wordWrap: 'break-word',
+              marginBottom: '24px',
+            }}
+          >
+            {state.quizDapp.dappStats.totalParticipants} &nbsp;
+          </Typography.Title>
+          {/* {typeof window == 'object' && (
             <AnimatedNumber
               includeComma
               animateToNumber={state.quizDapp.dappStats?.totalParticipants ?? 0}
@@ -189,7 +199,7 @@ const Home: NextPage = () => {
                 { mass: 1, tension: 210, friction: 180 },
               ]}
             />
-          )}
+          )} */}
           <Typography.Text
             style={{
               textAlign: 'center',
@@ -199,7 +209,7 @@ const Home: NextPage = () => {
               marginBottom: '24px',
             }}
           >
-            submissions.
+            submissions
           </Typography.Text>
           {/* {window != null && (
             <AnimatedNumber
